@@ -1,0 +1,27 @@
+package io.github.emm035.openapi.immutables.v3;
+
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.github.emm035.openapi.immutables.v3.base.OpenApiStyle;
+import io.github.emm035.openapi.immutables.v3.base.Extensible;
+import org.immutables.value.Value.Immutable;
+
+import java.util.Map;
+
+@Immutable
+@OpenApiStyle
+@JsonSerialize(using = PathsSerializer.class)
+@JsonDeserialize(using = PathsDeserializer.class)
+public abstract class AbstractPaths implements Extensible {
+  @JsonUnwrapped
+  public abstract Map<String, PathItem> getPathsMap();
+
+  public PathItem get(String path) {
+    return getPathsMap().get(path);
+  }
+
+  public static Paths empty() {
+    return Paths.builder().build();
+  }
+}
