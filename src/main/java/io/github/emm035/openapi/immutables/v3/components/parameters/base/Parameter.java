@@ -6,12 +6,19 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.github.emm035.openapi.immutables.v3.base.Extensible;
 import io.github.emm035.openapi.immutables.v3.components.Ref;
-import io.github.emm035.openapi.immutables.v3.components.base.Located;
+import io.github.emm035.openapi.immutables.v3.components.RefOr;
+import io.github.emm035.openapi.immutables.v3.components.base.Deprecatable;
+import io.github.emm035.openapi.immutables.v3.components.base.Describable;
+import io.github.emm035.openapi.immutables.v3.components.base.WithMultipleExamples;
 import io.github.emm035.openapi.immutables.v3.components.parameters.CookieParameter;
 import io.github.emm035.openapi.immutables.v3.components.parameters.HeaderParameter;
 import io.github.emm035.openapi.immutables.v3.components.parameters.PathParameter;
 import io.github.emm035.openapi.immutables.v3.components.parameters.QueryParameter;
+import io.github.emm035.openapi.immutables.v3.components.schemas.Schema;
+
+import java.util.Optional;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 
@@ -22,7 +29,13 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
   @Type(value = HeaderParameter.class, name = "header"),
   @Type(value = CookieParameter.class, name = "cookie")
 })
-public interface Parameter extends Located<Parameter.Location> {
+public interface Parameter extends WithMultipleExamples, Deprecatable, Describable, Extensible {
+
+  Location getIn();
+  String getName();
+  Optional<Boolean> getRequired();
+  RefOr<Schema> getSchema();
+  Optional<Object> getDefault();
 
   static Ref ref(String name) {
     return Ref.toParameter(name);

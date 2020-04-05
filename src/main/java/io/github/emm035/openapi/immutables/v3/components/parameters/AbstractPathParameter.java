@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.github.emm035.openapi.immutables.v3.base.OpenApiStyle;
-import io.github.emm035.openapi.immutables.v3.components.parameters.base.TypedParameter;
+import io.github.emm035.openapi.immutables.v3.components.parameters.base.Parameter;
 import org.immutables.value.Value.Default;
 import org.immutables.value.Value.Derived;
 import org.immutables.value.Value.Immutable;
@@ -16,7 +16,7 @@ import static org.immutables.value.Value.Check;
 
 @OpenApiStyle
 @Immutable
-public abstract class AbstractPathParameter implements TypedParameter {
+public abstract class AbstractPathParameter implements Parameter {
   @Override
   @Derived
   public Location getIn() {

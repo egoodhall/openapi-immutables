@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.common.base.CaseFormat;
 import io.github.emm035.openapi.immutables.v3.base.OpenApiStyle;
-import io.github.emm035.openapi.immutables.v3.components.parameters.base.TypedParameter;
+import io.github.emm035.openapi.immutables.v3.components.parameters.base.Parameter;
 import org.immutables.value.Value;
 import org.immutables.value.Value.Check;
 import org.immutables.value.Value.Default;
@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @OpenApiStyle
 @Value.Immutable
-public abstract class AbstractQueryParameter implements TypedParameter {
+public abstract class AbstractQueryParameter implements Parameter {
   @Override
   @Derived
   public Location getIn() {
@@ -63,5 +63,4 @@ public abstract class AbstractQueryParameter implements TypedParameter {
       .forEach(e -> newQueryParameter.putExtensions(e.getKey(), e.getValue()));
     return newQueryParameter.build();
   }
-  
 }

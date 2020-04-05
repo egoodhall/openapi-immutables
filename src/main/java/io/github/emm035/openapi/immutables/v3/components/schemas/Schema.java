@@ -1,10 +1,9 @@
-package io.github.emm035.openapi.immutables.v3.components.schemas.base;
+package io.github.emm035.openapi.immutables.v3.components.schemas;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.github.emm035.openapi.immutables.v3.base.Extensible;
 import io.github.emm035.openapi.immutables.v3.components.base.Describable;
 import io.github.emm035.openapi.immutables.v3.components.base.WithSingleExample;
-import io.github.emm035.openapi.immutables.v3.components.schemas.XmlObject;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package io.github.emm035.openapi.immutables.v3.components.schemas.base;
+package io.github.emm035.openapi.immutables.v3.components.schemas;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -8,13 +8,10 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.emm035.openapi.immutables.v3.components.schemas.AllOfSchema;
-import io.github.emm035.openapi.immutables.v3.components.schemas.AnyOfSchema;
-import io.github.emm035.openapi.immutables.v3.components.schemas.OneOfSchema;
 
 import java.io.IOException;
 
-public class SchemaDeserializer extends JsonDeserializer<Schema> {
+class SchemaDeserializer extends JsonDeserializer<Schema> {
   @Override
   public Schema deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
     ObjectMapper mapper = (ObjectMapper) p.getCodec();

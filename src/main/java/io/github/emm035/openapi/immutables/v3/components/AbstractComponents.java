@@ -5,10 +5,10 @@ import io.github.emm035.openapi.immutables.v3.components.callbacks.Callback;
 import io.github.emm035.openapi.immutables.v3.components.content.Header;
 import io.github.emm035.openapi.immutables.v3.components.content.RequestBody;
 import io.github.emm035.openapi.immutables.v3.components.content.Response;
-import io.github.emm035.openapi.immutables.v3.components.examples.base.Example;
+import io.github.emm035.openapi.immutables.v3.components.examples.Example;
 import io.github.emm035.openapi.immutables.v3.components.links.Link;
 import io.github.emm035.openapi.immutables.v3.components.parameters.base.Parameter;
-import io.github.emm035.openapi.immutables.v3.components.schemas.base.Schema;
+import io.github.emm035.openapi.immutables.v3.components.schemas.Schema;
 import io.github.emm035.openapi.immutables.v3.components.security.base.SecurityScheme;
 import org.immutables.value.Value.Immutable;
 

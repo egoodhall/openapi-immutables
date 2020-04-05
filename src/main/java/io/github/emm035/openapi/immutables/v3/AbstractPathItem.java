@@ -10,8 +10,8 @@ import io.github.emm035.openapi.immutables.v3.components.base.Describable;
 import io.github.emm035.openapi.immutables.v3.components.base.Summarizable;
 import io.github.emm035.openapi.immutables.v3.components.parameters.base.Parameter;
 import io.github.emm035.openapi.immutables.v3.servers.Server;
+import org.immutables.value.Value.Derived;
 import org.immutables.value.Value.Immutable;
-import org.immutables.value.Value.Lazy;
 
 import java.util.List;
 import java.util.Map;
@@ -34,9 +34,9 @@ public abstract class AbstractPathItem implements Summarizable, Describable, Ext
   public abstract Optional<Operation> getHead();
   public abstract Optional<Operation> getTrace();
 
+  @Derived
   @JsonIgnore
-  @Lazy
-  public Map<HttpMethod, Operation> getOperations() {
+  public synchronized Map<HttpMethod, Operation> getOperations() {
     ImmutableMap.Builder<HttpMethod, Operation> builder = ImmutableMap.builder();
 
     getGet().ifPresent(op -> builder.put(HttpMethod.GET, op));

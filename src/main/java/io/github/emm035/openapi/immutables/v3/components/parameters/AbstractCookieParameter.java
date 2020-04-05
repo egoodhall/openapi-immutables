@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.github.emm035.openapi.immutables.v3.base.OpenApiStyle;
-import io.github.emm035.openapi.immutables.v3.components.parameters.base.TypedParameter;
+import io.github.emm035.openapi.immutables.v3.components.parameters.base.Parameter;
 import org.immutables.value.Value;
 import org.immutables.value.Value.Check;
 
 
 @OpenApiStyle
 @Value.Immutable
-public abstract class AbstractCookieParameter implements TypedParameter {
+public abstract class AbstractCookieParameter implements Parameter {
   @Override
   @Value.Derived
   public Location getIn() {

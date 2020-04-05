@@ -1,4 +1,4 @@
-package io.github.emm035.openapi.immutables.v3.components.schemas.base;
+package io.github.emm035.openapi.immutables.v3.components.schemas;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,12 +8,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.github.emm035.openapi.immutables.v3.components.base.Describable;
 import io.github.emm035.openapi.immutables.v3.components.base.WithSingleExample;
-import io.github.emm035.openapi.immutables.v3.components.schemas.ArraySchema;
-import io.github.emm035.openapi.immutables.v3.components.schemas.BooleanSchema;
-import io.github.emm035.openapi.immutables.v3.components.schemas.IntegerSchema;
-import io.github.emm035.openapi.immutables.v3.components.schemas.NumberSchema;
-import io.github.emm035.openapi.immutables.v3.components.schemas.ObjectSchema;
-import io.github.emm035.openapi.immutables.v3.components.schemas.StringSchema;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 

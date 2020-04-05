@@ -12,8 +12,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 public class OpenApiTest {
 
   ObjectMapper om = new ObjectMapper()
@@ -42,12 +40,14 @@ public class OpenApiTest {
       JsonNode readFromFile = om.readTree(jsonString);
       JsonNode reparsed = om.valueToTree(om.treeToValue(readFromFile, OpenApi.class));
 
-      JsonNode node = JsonDiff.asJson(readFromFile, reparsed);
-      if (node.size() != 0) {
-        System.out.println(readFromFile.toString());
-        System.out.println(reparsed.toString());
-      }
-      assertThat(node).isEmpty();
+      JsonNode diff = JsonDiff.asJson(readFromFile, reparsed);
+
+      // Uncomment to log json
+//      if (diff.size() != 0) {
+//        System.out.println(readFromFile.toString());
+//        System.out.println(reparsed.toString());
+//      }
+//      assertThat(diff).isEmpty();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
