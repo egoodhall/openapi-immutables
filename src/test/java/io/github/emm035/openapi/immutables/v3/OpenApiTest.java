@@ -57,9 +57,9 @@ public class OpenApiTest {
 
     // Uncomment to log json
     if (!onlyRemovedEmptyContent) {
-      System.out.println(source.toString());
-      System.out.println(target.toString());
-      System.out.println(diff);
+      System.err.println(source.toString());
+      System.err.println(target.toString());
+      System.err.println(diff);
     }
     assertThat(onlyRemovedEmptyContent).isTrue();
   }
