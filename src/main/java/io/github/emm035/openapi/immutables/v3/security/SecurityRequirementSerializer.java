@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
 
-public class SecurityRequirementSerializer extends JsonSerializer<SecurityRequirement> {
+class SecurityRequirementSerializer extends JsonSerializer<SecurityRequirement> {
   @Override
   public void serialize(SecurityRequirement value, JsonGenerator gen, SerializerProvider serializers) throws IOException, JsonProcessingException {
     gen.writeStartObject();

@@ -2,7 +2,7 @@ package io.github.emm035.openapi.immutables.v3.security;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.github.emm035.openapi.immutables.v3.base.OpenApiStyle;
+import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import org.immutables.value.Value.Immutable;
 
 import java.util.List;
