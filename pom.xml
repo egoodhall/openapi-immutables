@@ -7,6 +7,11 @@
   <version>1.0.0</version>
 
   <properties>
+    <gpg.keyname>${env.SIGNING_KEY_NAME}</gpg.keyname>
+    <gpg.passphrase>${env.SIGNING_KEY_PWD}</gpg.passphrase>
+  </properties>
+
+  <properties>
     <dep.jackson.version>2.9.10</dep.jackson.version>
     <dep.jackson-databind.version>2.9.10.1</dep.jackson-databind.version>
     <dep.jsr305.version>3.0.1</dep.jsr305.version>
@@ -130,19 +135,62 @@
   </dependencies>
 
   <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
-        <configuration>
-          <encoding>UTF-8</encoding>
-          <source>11</source>
-          <target>11</target>
-        </configuration>
-      </plugin>
-    </plugins>
+    <pluginManagement>
+      <plugins>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.1</version>
+          <configuration>
+            <encoding>UTF-8</encoding>
+            <source>11</source>
+            <target>11</target>
+          </configuration>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
   </build>
+
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <licenses>
     <license>
@@ -166,11 +214,11 @@
 
   <distributionManagement>
     <repository>
-      <id>oss</id>
+      <id>sonatype-oss</id>
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
     <snapshotRepository>
-      <id>oss</id>
+      <id>sonatype-oss</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>

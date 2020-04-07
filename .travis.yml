@@ -1,8 +1,20 @@
 language: java
 
+# Environment variables
+env:
+  global:
+    - secure: "axYgWE5+WLitLU02EiXx6mqoOZ7UReXJYT0u4Yes9CvkgGHu/luFtJfxecho6+b+e9d0hOZSAGmM7mU/rdmLcgAWZz5gRdE5okhW6R4gPeAwIDDOPmxN69kXW6QoP28b892MyqyhtpPI/3Amh4UalrjoqMO1J+XBeDbvMb0CA4W0EC2y76pAE9AhLDgnYB9//M3P8Z+4W9RQM1FW2v+OX35Gua72qNw27y5l8VqQgxbvWUeMM151sp9SLTxotsxvtRc8HABsxgUeK0Dv9t1LO198/LuoIK//5py8uqn+3Yp6H/r32ICzDd3fzkvBZsVRKcY+8uKGqXNiIHnQprseUxNJWtEzOOhbiu16sFqLL4XO/hc74movt3kuEaf/aLrowiMXwdfdP8/hJqkJEhpDFLpYrNAnFQqLFiL0W8dcjjQDOQNrYu/JCiIGkCi0CPfYM7d4F0KGCwEFyRvmhY1P6lsDyA27w74mE9DoQvAyMJLGof5HAc2J0r+22wp7eisJflM188iIz3HQ7tB1kk+YAhIOfRkDkevG6DBETd+zFSCzBzxkpAQcTY1s+us8N0PrLByCqutwkn6/7klpdeJLzA74fwtm3/C3IFwcqDX6RBmWijNbYCvRStdI7YoIKy64CC8tqxhUTD3Xh79RwV9P5enudSg8TXJCFD/1x55BY00="
+    - secure: "E7BLmi6wu39bw8dPvhBnsW8L34+JmfGmruO2Kgs5EAmDgp8ODTOu/Uno45Ax5xCmZH/Mkh5xLJyDgUge6OdLPnwQhGaVbw+Tms6rjxFo+Aoux2MUELxZhqHeVIS/TpNQ+RuOO6j73QWTAkK7xvmIBXBYvwCwUnSBtdbg1o9YrW0PoHnp5BgnGLEslNCHbOhdb+Kr9lLCNP5XSbPNMKk/AhLhlSJlCsUNGngXO1JsHb7aJZwh1o67Fel9aVCr6Iw1dKLxZUCR4tQIOszk+ggheXqcnvzQN9HX7bCa9zyj56wRQ6deMUvSi34BwPzbFGasOc9AN0Tq8+EP02SRVpvbXr0VKwC+P1T+zi0Q9zT5iOVyLmp9eR8EtGHCT2cDMIkNDweZu3INvxDbKZyk6J0zfDGI7nX0au3cU94UI/cYfhNvk9Q6NryYSEYCmy4b+LaPRl4LzuELETFhwXZ/KAny7+5pVIKAeBeb1CEOI4har5fP1B0Oa/tK4W5MTsj1JebAQsCQ6uBt5M+AWC37nSH1ksSuG1TGxFPJuWolSxSdNddr/KtqdJKoD+vN+esexfeBZ2+NCskGqgtmS0bKlq2VxWtYk8Yew9gMdpI5CJvoraithcqwja88NcKDjUmqLjqn3YsrqYKl061Ot1CEmExTgfO3kdaPJbXtU+GI9t5s7Xo="
+
 # Resolve dependencies
 install:
   - mvn dependency:resolve
 
+# Decrypt signing key
+before_script:
+  - openssl aes-256-cbc -K $encrypted_fd99d59952c4_key -iv $encrypted_fd99d59952c4_iv -in .travis/mvn-deploy-key.asc.enc -out .travis/mvn-deploy-key.asc -d
+  - gpg --import .travis/mvn-deploy-key.asc
+
 # Run the script to package
-script: mvn package
+script:
+  - mvn verify -Prelease -Dgpg.keyname="$SIGNING_KEY_NAME" -Dgpg.passphrase="$SIGNING_KEY_PWD"
