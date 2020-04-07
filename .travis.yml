@@ -17,4 +17,4 @@ before_script:
 
 # Run the script to package
 script:
-  - mvn verify -Prelease -Dgpg.keyname="$SIGNING_KEY_NAME" -Dgpg.passphrase="$SIGNING_KEY_PWD"
+  - mvn verify -Prelease

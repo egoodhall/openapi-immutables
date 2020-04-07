@@ -7,11 +7,6 @@
   <version>1.0.0</version>
 
   <properties>
-    <gpg.keyname>${env.SIGNING_KEY_NAME}</gpg.keyname>
-    <gpg.passphrase>${env.SIGNING_KEY_PWD}</gpg.passphrase>
-  </properties>
-
-  <properties>
     <dep.jackson.version>2.9.10</dep.jackson.version>
     <dep.jackson-databind.version>2.9.10.1</dep.jackson-databind.version>
     <dep.jsr305.version>3.0.1</dep.jsr305.version>
@@ -156,6 +151,10 @@
   <profiles>
     <profile>
       <id>release</id>
+      <properties>
+        <gpg.keyname>${env.SIGNING_KEY_NAME}</gpg.keyname>
+        <gpg.passphrase>${env.SIGNING_KEY_PWD}</gpg.passphrase>
+      </properties>
       <build>
         <plugins>
 
