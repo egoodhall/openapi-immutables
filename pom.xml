@@ -152,7 +152,9 @@
     <profile>
       <id>release</id>
       <properties>
+        <!--suppress UnresolvedMavenProperty -->
         <gpg.keyname>${env.SIGNING_KEY_NAME}</gpg.keyname>
+        <!--suppress UnresolvedMavenProperty -->
         <gpg.passphrase>${env.SIGNING_KEY_PWD}</gpg.passphrase>
       </properties>
       <build>
