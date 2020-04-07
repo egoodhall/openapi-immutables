@@ -1,3 +1,5 @@
+os: linux
+dist: xenial
 language: java
 
 # Use caching of .m2 directory
@@ -22,7 +24,5 @@ before_script:
   - openssl aes-256-cbc -K $encrypted_fd99d59952c4_key -iv $encrypted_fd99d59952c4_iv -in .travis/mvn-deploy-key.asc.enc -out .travis/mvn-deploy-key.asc -d
   - gpg --import .travis/mvn-deploy-key.asc
 
-# Compile, sign, package
-script: mvn clean verify -Prelease
-
-deploy: mvn deploy --settings .travis/settings.xml
+# Compile, sign, package, deploy
+script: mvn clean deploy --settings .travis/settings.xml -Prelease
