@@ -25,4 +25,11 @@ before_script:
   - gpg --import .travis/mvn-deploy-key.asc
 
 # Compile, sign, package, deploy
-script: mvn clean deploy --settings .travis/settings.xml -Pdeploy-oss
+script: mvn clean verify
+
+deploy:
+  provider: script
+  script: mvn clean deploy -DskipTests=true --settings .travis/settings.xml -Pdeploy-oss
+  on:
+    tags: true
+    branch: master
