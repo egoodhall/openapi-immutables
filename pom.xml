@@ -4,7 +4,7 @@
 
   <groupId>com.github.emm035</groupId>
   <artifactId>openapi-immutables</artifactId>
-  <version>1.0.0</version>
+  <version>1.0-SNAPSHOT</version>
 
   <properties>
     <dep.jackson.version>2.9.10</dep.jackson.version>
@@ -150,7 +150,7 @@
 
   <profiles>
     <profile>
-      <id>release</id>
+      <id>deploy-oss</id>
       <properties>
         <!--suppress UnresolvedMavenProperty -->
         <gpg.keyname>${env.SIGNING_KEY_NAME}</gpg.keyname>
