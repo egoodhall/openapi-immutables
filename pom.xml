@@ -10,7 +10,7 @@
 
   <properties>
     <dep.jackson.version>2.9.10</dep.jackson.version>
-    <dep.jackson-databind.version>2.9.10.1</dep.jackson-databind.version>
+    <dep.jackson-databind.version>2.9.10.3</dep.jackson-databind.version>
     <dep.jsr305.version>3.0.1</dep.jsr305.version>
     <dep.immutables.version>2.5.6</dep.immutables.version>
     <dep.junit.version>4.12</dep.junit.version>
