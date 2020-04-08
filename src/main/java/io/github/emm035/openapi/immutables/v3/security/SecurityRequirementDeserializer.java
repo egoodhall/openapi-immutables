@@ -13,7 +13,7 @@ import com.google.common.collect.Streams;
 import java.io.IOException;
 import java.util.List;
 
-public class SecurityRequirementDeserializer extends JsonDeserializer<SecurityRequirement> {
+class SecurityRequirementDeserializer extends JsonDeserializer<SecurityRequirement> {
   @Override
   public SecurityRequirement deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
     ObjectMapper mapper = (ObjectMapper) p.getCodec();

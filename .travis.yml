@@ -1,0 +1,35 @@
+os: linux
+dist: xenial
+language: java
+
+# Use caching of .m2 directory
+cache:
+  directories:
+    - $HOME/.m2
+
+# Environment variables
+env:
+  global:
+    - secure: "axYgWE5+WLitLU02EiXx6mqoOZ7UReXJYT0u4Yes9CvkgGHu/luFtJfxecho6+b+e9d0hOZSAGmM7mU/rdmLcgAWZz5gRdE5okhW6R4gPeAwIDDOPmxN69kXW6QoP28b892MyqyhtpPI/3Amh4UalrjoqMO1J+XBeDbvMb0CA4W0EC2y76pAE9AhLDgnYB9//M3P8Z+4W9RQM1FW2v+OX35Gua72qNw27y5l8VqQgxbvWUeMM151sp9SLTxotsxvtRc8HABsxgUeK0Dv9t1LO198/LuoIK//5py8uqn+3Yp6H/r32ICzDd3fzkvBZsVRKcY+8uKGqXNiIHnQprseUxNJWtEzOOhbiu16sFqLL4XO/hc74movt3kuEaf/aLrowiMXwdfdP8/hJqkJEhpDFLpYrNAnFQqLFiL0W8dcjjQDOQNrYu/JCiIGkCi0CPfYM7d4F0KGCwEFyRvmhY1P6lsDyA27w74mE9DoQvAyMJLGof5HAc2J0r+22wp7eisJflM188iIz3HQ7tB1kk+YAhIOfRkDkevG6DBETd+zFSCzBzxkpAQcTY1s+us8N0PrLByCqutwkn6/7klpdeJLzA74fwtm3/C3IFwcqDX6RBmWijNbYCvRStdI7YoIKy64CC8tqxhUTD3Xh79RwV9P5enudSg8TXJCFD/1x55BY00="
+    - secure: "E7BLmi6wu39bw8dPvhBnsW8L34+JmfGmruO2Kgs5EAmDgp8ODTOu/Uno45Ax5xCmZH/Mkh5xLJyDgUge6OdLPnwQhGaVbw+Tms6rjxFo+Aoux2MUELxZhqHeVIS/TpNQ+RuOO6j73QWTAkK7xvmIBXBYvwCwUnSBtdbg1o9YrW0PoHnp5BgnGLEslNCHbOhdb+Kr9lLCNP5XSbPNMKk/AhLhlSJlCsUNGngXO1JsHb7aJZwh1o67Fel9aVCr6Iw1dKLxZUCR4tQIOszk+ggheXqcnvzQN9HX7bCa9zyj56wRQ6deMUvSi34BwPzbFGasOc9AN0Tq8+EP02SRVpvbXr0VKwC+P1T+zi0Q9zT5iOVyLmp9eR8EtGHCT2cDMIkNDweZu3INvxDbKZyk6J0zfDGI7nX0au3cU94UI/cYfhNvk9Q6NryYSEYCmy4b+LaPRl4LzuELETFhwXZ/KAny7+5pVIKAeBeb1CEOI4har5fP1B0Oa/tK4W5MTsj1JebAQsCQ6uBt5M+AWC37nSH1ksSuG1TGxFPJuWolSxSdNddr/KtqdJKoD+vN+esexfeBZ2+NCskGqgtmS0bKlq2VxWtYk8Yew9gMdpI5CJvoraithcqwja88NcKDjUmqLjqn3YsrqYKl061Ot1CEmExTgfO3kdaPJbXtU+GI9t5s7Xo="
+    - secure: "iJJLFsXp+mlScv3BCmGuZpsqXPsg9PyN3CV12+CPSaQnQZRItmZO7YLCfzoU//O8aNaHAqfbiWNJi25YRfbII1KHo8xXjBs60CiF9Q92NZX9PFGwA0rYCWx2Tgp7GyRR1+uFrVpABAgS7De7OMwepF2xqgyetC1xBISoMduDpg29wn3bLyD3d0oAUj/L2lEYSZDay/Ydh+1X34ZImigr/4DcpRb/KaPCkYuBDCz4wnaGDyZnqEDknv6r7MYtbKrTiW4j+T0+KqUEO6LsqG1W6MmqOYwy9lSi01YPaasz1/Lzyhzwjb7Zy2qKwqOxib/Lfq8/ThkzqfQfskI27bv5196mgZQEXh+B4BxW1ITj6h2ryZx1YJRDX3opNgBTE/Xsz3aNaYGoAwpwtrKTr4TcpzhouY3+FzyUgwpevWtN+HzRpJ1b8tKew1CxJf3XwTMnoJ0wiV6bCCGsWpPTqU1EzbRF4sBTg0EjhAhMMf2cciX3DHmGxL7uixe+DPIyAtnD107eq7XJa5RcAh1Zu5crjMHFkReTxjTvp8EJZpER3EekBoc1Hb6fXg09gvOJowTJIaQjB0zFFhBYBgexw4f8HoNo1FM+MmN29Zv8znxxr6Y4pzWWu/rocobyLhCblHMfPCTqQTSE4hdRtUGB+pt5hBzK/pWgD63l8pFcoWRQpMc="
+    - secure: "KpfLo2djz0iAvpwnq4xkKIeUFdNC/1wKUw+FnCFxOz6dVing872Nxj0iNVMD0GxOGqndNKHVmGWbYfaqX0vwRCjj0gVLi/6k0I83kXA7ir/eLOgDRZCbHx0+Qc/xnhqFroVMRwj7rg2aiu59B1FpcpTkTYlLLX5BOKQ2QKgYZ4r/KTrb3qAxqEpCLAw/4b5BTLTFjCHdDlJEnfUw9/1ze1s6ao9YhdOn+KJvPCwi42rpWimykKMyXnoJbHWtriOPAUJoVR3U2eD6RqvWdqSwtf/ltII03VR9aWdtlTctFPIKP47dzGwt4g+i9kQ19lCGCwU/UbrC0Q4hPu48K3gjSi3HYq78sT/vsTVyGkm4+MzsZhF0padKdP77c+psOtmILHWDKphth8z1t+xbfR6E3G82S0tRGPsN1VTe7pdR9sWjEiiicG/9Fmjb0kfGK2ZX+ifvJE7+PHLfg3dT/g1BDHt5CmHY4dLFZfdd/x2hz9jehwvvX2WUmrMMgx8kRPDFuS1llWsQxr35vDKf4YN6TAl3N86uxIws/xPxGwKYjkbS+OQBzoerctgw9hdXn3/6MIqJc4erPH5QeSXotodrtuz9HluqrYxtcx43GCnwMc4hi6L3W08vGvPdzgPFDfYVBO4q9bFB5tbNoU/OKYGnwwwJqDX8u8yjsCklMprAyhc="
+
+# Resolve dependencies
+install:
+  - mvn dependency:resolve
+
+# Decrypt and import signing key
+before_script:
+  - openssl aes-256-cbc -K $encrypted_fd99d59952c4_key -iv $encrypted_fd99d59952c4_iv -in .travis/mvn-deploy-key.asc.enc -out .travis/mvn-deploy-key.asc -d
+  - gpg --import .travis/mvn-deploy-key.asc
+
+# Compile, sign, package, deploy
+script: mvn clean verify
+
+deploy:
+  provider: script
+  script: mvn clean deploy --settings .travis/settings.xml -Pdeploy-oss
+  on:
+    tags: true
+    branch: master

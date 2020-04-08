@@ -1,7 +1,7 @@
 package io.github.emm035.openapi.immutables.v3.servers;
 
-import io.github.emm035.openapi.immutables.v3.base.Extensible;
-import io.github.emm035.openapi.immutables.v3.base.OpenApiStyle;
+import io.github.emm035.openapi.immutables.v3.shared.Extensible;
+import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import org.immutables.value.Value;
 import org.immutables.value.Value.Immutable;
 

@@ -1,25 +1,23 @@
 package io.github.emm035.openapi.immutables.v3;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.guava.GuavaModule;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.flipkart.zjsonpatch.DiffFlags;
 import com.flipkart.zjsonpatch.JsonDiff;
+import com.google.common.collect.Streams;
 import com.google.common.io.ByteStreams;
+import io.github.emm035.openapi.immutables.v3.jackson.Json;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class OpenApiTest {
 
-  ObjectMapper om = new ObjectMapper()
-    .registerModule(new Jdk8Module())
-    .registerModule(new GuavaModule())
-    .setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+  private static final ObjectMapper om = Json.OBJECT_MAPPER;
 
   @Test
   public void testWithHubspotCrmCardsSpec() throws IOException {
@@ -42,15 +40,28 @@ public class OpenApiTest {
       JsonNode readFromFile = om.readTree(jsonString);
       JsonNode reparsed = om.valueToTree(om.treeToValue(readFromFile, OpenApi.class));
 
-      JsonNode node = JsonDiff.asJson(readFromFile, reparsed);
-      if (node.size() != 0) {
-        System.out.println(readFromFile.toString());
-        System.out.println(reparsed.toString());
-      }
-      assertThat(node).isEmpty();
+      onlyRemovedEmptyNodes(readFromFile, reparsed);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
+  }
+
+  private void onlyRemovedEmptyNodes(JsonNode source, JsonNode target) {
+    JsonNode diff = JsonDiff.asJson(source, target, EnumSet.noneOf(DiffFlags.class));
+
+    boolean onlyRemovedEmptyContent = Streams.stream(diff.iterator())
+      .map(node -> node.get("op").asText().equals("remove")
+        && node.get("value").isContainerNode()
+        && node.get("value").size() == 0)
+      .reduce(true, (l, r) -> l && r);
+
+    // Uncomment to log json
+    if (!onlyRemovedEmptyContent) {
+      System.err.println(source.toString());
+      System.err.println(target.toString());
+      System.err.println(diff);
+    }
+    assertThat(onlyRemovedEmptyContent).isTrue();
   }
 
   private String loadResourceFileAsString(String fileName) {
