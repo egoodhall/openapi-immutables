@@ -158,5 +158,5 @@ buildNumber.properties
 
 # End of https://www.gitignore.io/api/java,maven,intellij
 
-*.gpg
-*.asc
+# GPG keys
+*.key
