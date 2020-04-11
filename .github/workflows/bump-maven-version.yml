@@ -37,8 +37,8 @@ jobs:
         shell: bash
         run: |
           bash .scripts/set_version.sh ${{ steps.latest_release.outputs.tag_name }}
-          git config --global user.name 'Auto PR'
-          git config --global user.email 'autopr@emarshall.dev'
+          git config --global user.name 'Eric Marshall (Auto PR)'
+          git config --global user.email 'ericmarshall715@gmail.com'
           git commit -am "Bump package version to ${{ steps.latest_release.outputs.tag_name }}"
 
       - name: Push changes
