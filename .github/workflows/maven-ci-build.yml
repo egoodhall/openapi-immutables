@@ -37,10 +37,7 @@ jobs:
 
     - name: Set up GPG keys
       shell: bash
-      run: |
-        echo "$GPG_KEY" > .deploy/signing_key.key
-        gpg --import .deploy/signing_key.key
-        rm .deploy/signing_key.key
+      run: echo $GPG_KEY | gpg --import --no-tty --batch --yes
       env:
         GPG_KEY: ${{ secrets.GPG_KEY }}
 
