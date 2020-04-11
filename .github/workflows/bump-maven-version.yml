@@ -21,7 +21,7 @@ jobs:
           server-id: sonatype-oss
 
       - name: Fetch Latest Release
-        id: fetch_latest_release
+        id: latest_release
         uses: thebritican/fetch-latest-release@v1.0.2
         with:
           github_token: ${{ github.token }}
@@ -29,13 +29,10 @@ jobs:
       - name: Bump Maven version
         shell: bash
         run: |
-          test "$(echo ${{ steps.fetch_latest_release.outputs.tag_name }} | grep -E '^[0-9]+\.[0-9]+\.[0-9]+(?:-SNAPSHOT)?$')" != "" || { echo "Tag must use semver: '${{ steps.fetch_latest_release.outputs.tag_name }}'"; exit 1; }
-          mvn_version=$(mvn -q --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec -Dexec.executable="echo" -Dexec.args='${project.version}')
-          test "${{ steps.fetch_latest_release.outputs.tag_name }}" != "$mvn_version" || exit 0 && echo "Version changed. Bumping Maven version to ${{ steps.fetch_latest_release.outputs.tag_name }}"
-          mvn versions:set -DnewVersion=${{ steps.fetch_latest_release.outputs.tag_name }}
+          bash .scripts/set_version.sh ${{ steps.latest_release.outputs.tag_name }}
+          git commit -am "Bump package version to ${{ steps.latest_release.outputs.tag_name }}"
 
       - name: Push changes
-        uses: actions-go/push@v1
+        uses: ad-m/github-push-action@master
         with:
-          commit-message: Bump package version to {{ steps.fetch_latest_release.outputs.tag_name }}
-          branch: master
+          github_token: ${{ secrets.GITHUB_TOKEN }}
