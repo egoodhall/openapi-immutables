@@ -37,7 +37,7 @@ jobs:
 
     - name: Set up GPG keys
       shell: bash
-      run: echo $GPG_KEY | gpg --import --no-tty --batch --yes
+      run: echo $GPG_KEY | base64 --decode | gpg --import --no-tty
       env:
         GPG_KEY: ${{ secrets.GPG_KEY }}
 
