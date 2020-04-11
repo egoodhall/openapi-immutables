@@ -30,9 +30,11 @@ jobs:
         shell: bash
         run: |
           bash .scripts/set_version.sh ${{ steps.latest_release.outputs.tag_name }}
+          git config --global user.name 'Auto PR'
+          git config --global user.email 'autopr@emarshall.dev'
           git commit -am "Bump package version to ${{ steps.latest_release.outputs.tag_name }}"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.AUTO_PR_TOKEN }}
