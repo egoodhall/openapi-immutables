@@ -28,5 +28,16 @@ jobs:
       with:
         java-version: 11
 
-    - name: Build
-      run: mvn -B verify
+    - name: Determine snapshot version
+      id: snapshot_version
+      shell: bash
+      run: echo "::set-output name=version::$(.deploy/scripts/get_snapshot_version.sh)"
+
+    - name: Set version to ${{ steps.snapshot_version.output.version }}
+        shell: bash
+        run: |
+          bash .deploy/scripts/set_version.sh ${{ steps.snapshot_version.output.version }}
+
+    - name: Build & deploy snapshot
+      if: success()
+      run: mvn deploy -B -Pdeploy-oss --settings=.deploy/settings.xml

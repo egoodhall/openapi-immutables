@@ -13,8 +13,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.AUTO_PR_TOKEN }}
 
       - uses: actions/cache@v1
         with:
@@ -29,7 +27,7 @@ jobs:
           java-version: 11
           server-id: sonatype-oss
 
-      - name: Fetch Latest Release
+      - name: Fetch latest release
         id: latest_release
         uses: thebritican/fetch-latest-release@v1.0.2
         with:
@@ -37,13 +35,22 @@ jobs:
 
       - name: Bump Maven version
         shell: bash
+        run: .deploy/scripts/set_version.sh ${{ steps.latest_release.outputs.tag_name }}
+
+      - name: Build & deploy
+        if: success()
+        run: mvn deploy -B -Pdeploy-oss --settings=.deploy/settings.xml
+
+      - name: Commit changes
+        shell: bash
+        if: success()
         run: |
-          bash .deploy/scripts/set_version.sh ${{ steps.latest_release.outputs.tag_name }}
           git config --global user.name 'Eric Marshall (Auto PR)'
           git config --global user.email 'ericmarshall715@gmail.com'
           git commit -am "Bump package version to ${{ steps.latest_release.outputs.tag_name }}"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
+        if: success()
         with:
-          github_token: ${{ secrets.AUTO_PR_TOKEN }}
+          github_token: ${{ github.token }}
