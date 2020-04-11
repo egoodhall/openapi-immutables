@@ -35,6 +35,20 @@ jobs:
         version="$(.deploy/scripts/get_snapshot_version.sh)"
         .deploy/scripts/set_version.sh $version
 
+    - name: Set up GPG keys
+      shell: bash
+      run: |
+        echo "$GPG_KEY" > .deploy/signing_key.asc
+        gpg --import .deploy/signing_key.asc
+        rm .deploy/signing_key.asc
+      env:
+        GPG_KEY: ${{ secrets.GPG_KEY }}
+
     - name: Build & deploy snapshot
       if: success()
       run: mvn deploy -B -Pdeploy-oss --settings=.deploy/settings.xml
+      env:
+        SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+        SIGNING_KEY_PWD: ${{ secrets.GPG_KEY_PASSPHRASE }}
+        SIGNING_KEY_NAME: ${{ secrets.GPG_KEY_NAME }}
