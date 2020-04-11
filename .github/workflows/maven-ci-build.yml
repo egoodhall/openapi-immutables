@@ -39,7 +39,7 @@ jobs:
       shell: bash
       run: |
         echo "$GPG_KEY" > .deploy/signing_key.key
-        gpg2 --import .deploy/signing_key.key
+        gpg --import .deploy/signing_key.key
         rm .deploy/signing_key.key
       env:
         GPG_KEY: ${{ secrets.GPG_KEY }}
