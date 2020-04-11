@@ -38,3 +38,4 @@ jobs:
         uses: actions-go/push@v1
         with:
           commit-message: Bump package version to {{ steps.fetch_latest_release.outputs.tag_name }}
+          branch: master
