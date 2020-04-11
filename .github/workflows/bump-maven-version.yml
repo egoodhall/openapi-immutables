@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          github_token: ${{ secrets.AUTO_PR_TOKEN }}
+          token: ${{ secrets.AUTO_PR_TOKEN }}
 
       - uses: actions/cache@v1
         with:
@@ -38,7 +38,7 @@ jobs:
       - name: Bump Maven version
         shell: bash
         run: |
-          bash .scripts/set_version.sh ${{ steps.latest_release.outputs.tag_name }}
+          bash .deploy/scripts/set_version.sh ${{ steps.latest_release.outputs.tag_name }}
           git config --global user.name 'Eric Marshall (Auto PR)'
           git config --global user.email 'ericmarshall715@gmail.com'
           git commit -am "Bump package version to ${{ steps.latest_release.outputs.tag_name }}"
