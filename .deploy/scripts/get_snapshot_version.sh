@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-branch="$(git rev-parse --abbrev-ref HEAD)"
-if [[ "$branch" == "master" ]];then
+if [[ "$GITHUB_HEAD_REF" == "" ]];then
   echo "1.0-SNAPSHOT"
 else
-  echo "1.0-$branch-SNAPSHOT"
+  echo "1.0-$GITHUB_HEAD_REF-SNAPSHOT"
 fi

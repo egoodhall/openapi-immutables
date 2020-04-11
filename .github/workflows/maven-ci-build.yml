@@ -28,14 +28,12 @@ jobs:
       with:
         java-version: 11
 
-    - name: Determine snapshot version
+    - name: Set snapshot version
       id: snapshot_version
       shell: bash
-      run: echo "::set-output name=version::$(.deploy/scripts/get_snapshot_version.sh)"
-
-    - name: Set version to ${{ steps.snapshot_version.output.version }}
-      shell: bash
-      run: .deploy/scripts/set_version.sh ${{ steps.snapshot_version.output.version }}
+      run: |
+        version="$(.deploy/scripts/get_snapshot_version.sh)"
+        .deploy/scripts/set_version.sh $version
 
     - name: Build & deploy snapshot
       if: success()
