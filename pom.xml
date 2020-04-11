@@ -6,7 +6,7 @@
 
   <groupId>com.github.emm035</groupId>
   <artifactId>openapi-immutables</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 
   <properties>
     <dep.jackson.version>2.9.10</dep.jackson.version>
