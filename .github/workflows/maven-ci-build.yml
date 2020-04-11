@@ -38,6 +38,7 @@ jobs:
     - name: Set up GPG keys
       shell: bash
       run: |
+        mkdir -p .gnupg
         echo use-agent >> .gnupg/gpg.conf
         echo pinentry-mode loopback >> .gnupg/gpg.conf
         echo allow-loopback-pinentry >> .gnupg/gpg-agent.conf
