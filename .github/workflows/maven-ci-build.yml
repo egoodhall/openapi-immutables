@@ -37,11 +37,11 @@ jobs:
     - name: Set up GPG keys
       shell: bash
       run: |
-        # mkdir -p .gnupg
-        # echo use-agent >> .gnupg/gpg.conf
-        # echo pinentry-mode loopback >> .gnupg/gpg.conf
-        # echo allow-loopback-pinentry >> .gnupg/gpg-agent.conf
-        # echo RELOADAGENT | gpg-connect-agent
+        mkdir -p .gnupg
+        echo use-agent >> .gnupg/gpg.conf
+        echo pinentry-mode loopback >> .gnupg/gpg.conf
+        echo allow-loopback-pinentry >> .gnupg/gpg-agent.conf
+        echo RELOADAGENT | gpg-connect-agent
         echo $GPG_KEY | base64 --decode | gpg --homedir="$(pwd)" --import --no-tty
       env:
         GPG_KEY: ${{ secrets.GPG_KEY }}
