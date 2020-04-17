@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-
-if [[ "$GITHUB_HEAD_REF" == "" ]];then
+branch="${GITHUB_REF#refs/heads/}"
+if [[ "$branch" == "" ]];then
   echo "1.0-SNAPSHOT"
 else
-  echo "1.0-$GITHUB_HEAD_REF-SNAPSHOT"
+  echo "1.0-$branch-SNAPSHOT"
 fi
