@@ -5,7 +5,7 @@ if [[ "$#" != "1" ]]; then
 fi
 
 version="$1"
-if [[ "$(echo "$version" | grep -E '(?:[0-9]+\.[0-9]+\.[0-9]+)|(?:1.0(-.+)*-SNAPSHOT)')" == "" ]]; then
+if [[ "$version" =~ ^(?:[0-9]+\.[0-9]+\.[0-9]+)|(?:1.0(-.+)*-SNAPSHOT)$ ]]; then
   echo "Tag must use semver or snapshot versioning (invalid: $version)"
   exit 1
 fi
