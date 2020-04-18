@@ -35,22 +35,20 @@ jobs:
 
       - name: Bump Maven version
         shell: bash
-        run: .deploy/scripts/set_version.sh ${{ steps.latest_release.outputs.tag_name }}
+        run: .deploy/scripts/set_version.sh "${{ steps.latest_release.outputs.tag_name }}"
 
-      - name: Build & deploy
+      - name: Set up GPG keys
+        shell: bash
+        run: |
+          echo $GPG_KEY | base64 --decode | gpg --batch --import --no-tty
+        env:
+          GPG_KEY: ${{ secrets.GPG_KEY }}
+
+      - name: Build & deploy snapshot
         if: success()
         run: mvn deploy -B -Pdeploy-oss --settings=.deploy/settings.xml
-
-      - name: Commit changes
-        shell: bash
-        if: success()
-        run: |
-          git config --global user.name 'Eric Marshall (Auto PR)'
-          git config --global user.email 'ericmarshall715@gmail.com'
-          git commit -am "Bump package version to ${{ steps.latest_release.outputs.tag_name }}"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        if: success()
-        with:
-          github_token: ${{ github.token }}
+        env:
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          SIGNING_KEY_PWD: ${{ secrets.GPG_KEY_PASSPHRASE }}
+          SIGNING_KEY_NAME: ${{ secrets.GPG_KEY_NAME }}
