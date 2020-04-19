@@ -8,6 +8,10 @@
   <artifactId>openapi-immutables</artifactId>
   <version>1.0-SNAPSHOT</version>
 
+  <name>OpenAPI Immutables</name>
+  <description>An implementation of the OpenAPI 3.0 specification with Java Immutables</description>
+  <url>https://github.com/emm035/openapi-immutables</url>
+
   <properties>
     <dep.jackson.version>2.9.10</dep.jackson.version>
     <dep.jackson-databind.version>2.9.10.3</dep.jackson-databind.version>
