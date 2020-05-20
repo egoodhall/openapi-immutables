@@ -18,13 +18,13 @@ public abstract class AbstractInfo implements Extensible {
   public abstract String getVersion();
 
   @Check
-  private Info normalizeExtensions(Info extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractInfo normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return Info.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

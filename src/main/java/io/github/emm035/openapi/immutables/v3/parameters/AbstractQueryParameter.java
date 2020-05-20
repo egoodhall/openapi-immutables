@@ -1,6 +1,7 @@
 package io.github.emm035.openapi.immutables.v3.parameters;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.common.base.CaseFormat;
@@ -21,13 +22,19 @@ public abstract class AbstractQueryParameter implements Parameter {
   public Location getIn() {
     return Location.QUERY;
   }
-  @Default
-  public Style getStyle() {
-    return Style.FORM;
+  public abstract Optional<Style> getStyle();
+  public abstract Optional<Boolean> getExplode();
+
+  @Derived
+  @JsonIgnore
+  public Style getStyleOrDefault() {
+    return getStyle().orElse(Style.FORM);
   }
-  @Default
-  public boolean getExplode() {
-    return true;
+
+  @Derived
+  @JsonIgnore
+  public boolean getExplodeOrDefault() {
+    return getExplode().orElse(true);
   }
   public abstract Optional<Boolean> getAllowReserved();
   public abstract Optional<Boolean> getAllowEmptyValue();
@@ -51,15 +58,13 @@ public abstract class AbstractQueryParameter implements Parameter {
   }
 
   @Check
-  private QueryParameter normalizeExtensions(QueryParameter queryParameter) {
-    if (queryParameter.getExtensions().keySet().stream().allMatch(s -> s.startsWith("x-"))) {
-      return queryParameter;
+  AbstractQueryParameter normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
-    QueryParameter.Builder newQueryParameter = QueryParameter.builder()
-      .from(queryParameter);
-    queryParameter.getExtensions().entrySet().stream()
-      .filter(e -> e.getKey().startsWith("x-"))
-      .forEach(e -> newQueryParameter.putExtensions(e.getKey(), e.getValue()));
-    return newQueryParameter.build();
+    return QueryParameter.builder()
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
+      .build();
   }
 }

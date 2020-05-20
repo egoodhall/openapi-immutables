@@ -12,13 +12,13 @@ public abstract class AbstractValueExample implements Example {
   public abstract Object getValue();
 
   @Check
-  private ValueExample normalizeExtensions(ValueExample extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractValueExample normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return ValueExample.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

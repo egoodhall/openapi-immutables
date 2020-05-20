@@ -12,7 +12,7 @@ public class PathsSerializer extends JsonSerializer<Paths> {
   @Override
   public void serialize(Paths value, JsonGenerator gen, SerializerProvider serializers) throws IOException, JsonProcessingException {
     gen.writeStartObject();
-    for (Map.Entry<String, PathItem> entry : value.getPathsMap().entrySet()) {
+    for (Map.Entry<String, PathItem> entry : value.getAsMap().entrySet()) {
       gen.writeObjectField(entry.getKey(), entry.getValue());
     }
     for (Map.Entry<String, Object> entry : value.getExtensions().entrySet()) {

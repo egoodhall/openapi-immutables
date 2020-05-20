@@ -34,13 +34,13 @@ public abstract class AbstractOperation implements Summarizable, Describable, Ex
   public abstract Map<String, Object> getCallbacks();
 
   @Check
-  private Operation normalizeExtensions(Operation extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractOperation normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return Operation.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

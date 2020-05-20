@@ -16,13 +16,13 @@ public abstract class AbstractServerVariable implements Extensible {
   public abstract Optional<String> getDescription();
 
   @Value.Check
-  private ServerVariable normalizeExtensions(ServerVariable extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractServerVariable normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return ServerVariable.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

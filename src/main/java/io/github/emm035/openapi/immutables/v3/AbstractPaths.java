@@ -15,10 +15,10 @@ import java.util.Map;
 @JsonDeserialize(using = PathsDeserializer.class)
 public abstract class AbstractPaths implements Extensible {
   @JsonUnwrapped
-  public abstract Map<String, PathItem> getPathsMap();
+  public abstract Map<String, PathItem> getAsMap();
 
   public PathItem get(String path) {
-    return getPathsMap().get(path);
+    return getAsMap().get(path);
   }
 
   public static Paths empty() {

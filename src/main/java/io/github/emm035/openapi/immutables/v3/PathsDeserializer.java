@@ -27,7 +27,7 @@ class PathsDeserializer extends StdDeserializer<Paths> {
       if (fieldName.startsWith("x-")) {
         builder.putExtensions(fieldName, mapper.treeToValue(node.get(fieldName), Object.class));
       } else {
-        builder.putPathsMap(fieldName, mapper.treeToValue(node.get(fieldName), PathItem.class));
+        builder.putAsMap(fieldName, mapper.treeToValue(node.get(fieldName), PathItem.class));
       }
     }
 

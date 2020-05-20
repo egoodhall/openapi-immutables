@@ -16,13 +16,13 @@ public abstract class AbstractExternalExample implements Example, Summarizable {
   public abstract Optional<String> getExternalValue();
 
   @Check
-  private ExternalExample normalizeExtensions(ExternalExample extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractExternalExample normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return ExternalExample.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

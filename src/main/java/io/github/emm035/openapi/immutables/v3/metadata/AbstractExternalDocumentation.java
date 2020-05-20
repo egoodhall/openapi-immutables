@@ -14,13 +14,13 @@ public abstract class AbstractExternalDocumentation implements Extensible {
   public abstract String getUrl();
 
   @Check
-  private ExternalDocumentation normalizeExtensions(ExternalDocumentation extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractExternalDocumentation normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return ExternalDocumentation.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

@@ -1,6 +1,7 @@
 package io.github.emm035.openapi.immutables.v3.parameters;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
@@ -28,14 +29,19 @@ public abstract class AbstractPathParameter implements Parameter {
     return Optional.of(true);
   }
 
-  @Default
-  public Style getStyle() {
-    return Style.SIMPLE;
+  public abstract Optional<Style> getStyle();
+  public abstract Optional<Boolean> getExplode();
+
+  @Derived
+  @JsonIgnore
+  public Style getStyleOrDefault() {
+    return getStyle().orElse(Style.SIMPLE);
   }
 
-  @Default
-  public boolean getExplode() {
-    return false;
+  @Derived
+  @JsonIgnore
+  public boolean getExplodeOrDefault() {
+    return getExplode().orElse(false);
   }
 
   public static enum Style {
@@ -56,15 +62,14 @@ public abstract class AbstractPathParameter implements Parameter {
   }
 
   @Check
-  private PathParameter normalizeExtensions(PathParameter pathParameter) {
-    if (pathParameter.getExtensions().keySet().stream().allMatch(s -> s.startsWith("x-"))) {
-      return pathParameter;
+  AbstractPathParameter normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
-    PathParameter.Builder newPathParameter = PathParameter.builder()
-      .from(pathParameter);
-    pathParameter.getExtensions().entrySet().stream()
-      .filter(e -> e.getKey().startsWith("x-"))
-      .forEach(e -> newPathParameter.putExtensions(e.getKey(), e.getValue()));
-    return newPathParameter.build();
+
+    return PathParameter.builder()
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
+      .build();
   }
 }

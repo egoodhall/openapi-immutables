@@ -3,7 +3,7 @@ package io.github.emm035.openapi.immutables.v3.responses;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.github.emm035.openapi.immutables.v3.content.Content;
 import io.github.emm035.openapi.immutables.v3.content.Header;
-import io.github.emm035.openapi.immutables.v3.references.Ref;
+import io.github.emm035.openapi.immutables.v3.references.refs.Ref;
 import io.github.emm035.openapi.immutables.v3.references.RefOr;
 import io.github.emm035.openapi.immutables.v3.schemas.Schema;
 import io.github.emm035.openapi.immutables.v3.shared.Describable;
@@ -38,15 +38,13 @@ public abstract class AbstractResponse implements Describable, Extensible {
   }
 
   @Check
-  private Response normalizeExtensions(Response response) {
-    if (response.getExtensions().keySet().stream().allMatch(s -> s.startsWith("x-"))) {
-      return response;
+  AbstractResponse normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
-    Response.Builder newResponse = Response.builder()
-      .from(response);
-    response.getExtensions().entrySet().stream()
-      .filter(e -> e.getKey().startsWith("x-"))
-      .forEach(e -> newResponse.putExtensions(e.getKey(), e.getValue()));
-    return newResponse.build();
+    return Response.builder()
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
+      .build();
   }
 }

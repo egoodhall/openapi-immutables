@@ -20,13 +20,13 @@ public abstract class AbstractRefLink implements Link, Extensible, Describable {
   public abstract Optional<Object> getRequestBody();
 
   @Check
-  private RefLink normalizeExtensions(RefLink extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractRefLink normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return RefLink.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }
