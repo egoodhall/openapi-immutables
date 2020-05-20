@@ -3,8 +3,10 @@ package io.github.emm035.openapi.immutables.v3.references;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Preconditions;
+import io.github.emm035.openapi.immutables.v3.references.refs.Ref;
 
 import javax.annotation.Nullable;
+import java.util.NoSuchElementException;
 import java.util.function.Function;
 
 @JsonSerialize(using = RefOrSerializer.class)
@@ -25,12 +27,16 @@ public class RefOr<T> {
   }
 
   public T getConcrete() {
-    Preconditions.checkNotNull(concrete);
+    if (isReferential()) {
+      throw new NoSuchElementException("No concrete value present");
+    }
     return concrete;
   }
 
   public Ref getRef() {
-    Preconditions.checkNotNull(ref);
+    if (!isReferential()) {
+      throw new NoSuchElementException("No reference present");
+    }
     return ref;
   }
 
@@ -47,5 +53,17 @@ public class RefOr<T> {
 
   public static <T> RefOr<T> ref(Ref ref) {
     return new RefOr<T>(null, ref);
+  }
+
+  @Override
+  public String toString() {
+    if (isReferential()) {
+      return "RefOr{" +
+        "ref=" + ref +
+        '}';
+    }
+    return "RefOr{" +
+      "concrete=" + concrete +
+      '}';
   }
 }
