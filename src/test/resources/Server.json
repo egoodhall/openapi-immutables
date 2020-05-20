@@ -1,0 +1,16 @@
+{
+  "url": "https://{env}.example.com/",
+  "description": "The example server",
+  "variables": {
+    "env": {
+      "enum": [
+        "app",
+        "build",
+        "test"
+      ],
+      "default": "app",
+      "description": "The environment to call"
+    }
+  },
+  "x-server": "test"
+}

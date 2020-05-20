@@ -1,0 +1,41 @@
+[
+  {
+    "in": "query",
+    "name": "queryParam",
+    "required": true,
+    "explode": true,
+    "schema": {
+      "type": "string"
+    },
+    "x-param": "test"
+  },
+  {
+    "in": "cookie",
+    "name": "cookieParam",
+    "required": true,
+    "explode": false,
+    "schema": {
+      "type": "string"
+    },
+    "x-param": "test"
+  },
+  {
+    "in": "path",
+    "name": "pathParam",
+    "explode": false,
+    "schema": {
+      "type": "string"
+    },
+    "x-param": "test"
+  },
+  {
+    "in": "header",
+    "name": "headerParam",
+    "explode": true,
+    "required": true,
+    "schema": {
+      "type": "string"
+    },
+    "x-param": "test"
+  }
+]

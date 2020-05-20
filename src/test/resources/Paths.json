@@ -1,0 +1,12 @@
+{
+  "/some-path": {
+    "description": "This is a path",
+    "post": {
+      "operationId": "item-create",
+      "summary": "Create an item",
+      "description": "Create an item from the information supplied in the request body"
+    },
+    "x-path-item": "test"
+  },
+  "x-paths": "test"
+}
