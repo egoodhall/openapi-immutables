@@ -25,8 +25,9 @@ public interface Extensible {
 
     public static boolean isValid(Map.Entry<String, ?> entry) {
       if (!isValid(entry.getKey())) {
-        System.out.println("Found invalid extension: " + entry.getKey());
-        return false;
+        throw new IllegalStateException(entry.getKey());
+//        System.out.println("Found invalid extension: " + entry.getKey());
+//        return false;
       }
       return true;
     }

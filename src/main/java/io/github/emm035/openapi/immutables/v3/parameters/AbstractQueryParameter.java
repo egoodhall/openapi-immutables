@@ -22,8 +22,15 @@ public abstract class AbstractQueryParameter implements Parameter {
   public Location getIn() {
     return Location.QUERY;
   }
+  public abstract Optional<Boolean> getRequired();
   public abstract Optional<Style> getStyle();
   public abstract Optional<Boolean> getExplode();
+
+  @Derived
+  @JsonIgnore
+  public boolean getRequiredOrDefault() {
+    return getRequired().orElse(false);
+  }
 
   @Derived
   @JsonIgnore

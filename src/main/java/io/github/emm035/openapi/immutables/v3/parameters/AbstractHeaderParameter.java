@@ -23,8 +23,15 @@ public abstract class AbstractHeaderParameter implements Parameter {
     return Location.HEADER;
   }
 
+  public abstract Optional<Boolean> getRequired();
   public abstract Optional<Style> getStyle();
   public abstract Optional<Boolean> getExplode();
+
+  @Derived
+  @JsonIgnore
+  public boolean getRequiredOrDefault() {
+    return getRequired().orElse(true);
+  }
 
   @Derived
   @JsonIgnore

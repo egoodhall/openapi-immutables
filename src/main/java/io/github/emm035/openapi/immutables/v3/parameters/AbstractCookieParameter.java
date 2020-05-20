@@ -21,8 +21,15 @@ public abstract class AbstractCookieParameter implements Parameter {
     return Location.COOKIE;
   }
 
+  public abstract Optional<Boolean> getRequired();
   public abstract Optional<Style> getStyle();
   public abstract Optional<Boolean> getExplode();
+
+  @Derived
+  @JsonIgnore
+  public boolean getRequiredOrDefault() {
+    return getRequired().orElse(true);
+  }
 
   @Derived
   @JsonIgnore

@@ -23,14 +23,15 @@ public abstract class AbstractPathParameter implements Parameter {
     return Location.PATH;
   }
 
-  @Override
-  @Derived
-  public Optional<Boolean> getRequired() {
-    return Optional.of(true);
-  }
-
+  public abstract Optional<Boolean> getRequired();
   public abstract Optional<Style> getStyle();
   public abstract Optional<Boolean> getExplode();
+
+  @Derived
+  @JsonIgnore
+  public boolean getRequiredOrDefault() {
+    return getRequired().orElse(true);
+  }
 
   @Derived
   @JsonIgnore

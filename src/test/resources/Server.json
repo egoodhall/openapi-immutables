@@ -9,7 +9,8 @@
         "test"
       ],
       "default": "app",
-      "description": "The environment to call"
+      "description": "The environment to call",
+      "x-server-variable": "test"
     }
   },
   "x-server": "test"

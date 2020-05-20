@@ -10,7 +10,6 @@ public class PathItemTest extends BasicJsonTest<PathItem> {
   public PathItem getInstance() {
     return PathItem.builder()
       .setDescription("This is a path")
-      .setPost(new OperationTest().getInstance())
       .putExtensions("x-path-item", "test")
       .build();
   }
