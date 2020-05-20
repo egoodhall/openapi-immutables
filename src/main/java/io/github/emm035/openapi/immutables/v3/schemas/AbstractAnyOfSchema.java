@@ -23,13 +23,13 @@ public abstract class AbstractAnyOfSchema implements Schema {
   }
 
   @Check
-  private AnyOfSchema normalizeExtensions(AnyOfSchema extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractAnyOfSchema normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return AnyOfSchema.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

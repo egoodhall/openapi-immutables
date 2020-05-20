@@ -27,13 +27,13 @@ public abstract class AbstractArraySchema implements TypedSchema {
   public abstract Optional<Integer> getMaxItems();
 
   @Check
-  private ArraySchema normalizeExtensions(ArraySchema extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractArraySchema normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return ArraySchema.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

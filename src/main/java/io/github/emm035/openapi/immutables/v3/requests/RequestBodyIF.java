@@ -3,7 +3,7 @@ package io.github.emm035.openapi.immutables.v3.requests;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import io.github.emm035.openapi.immutables.v3.shared.Extensible;
 import io.github.emm035.openapi.immutables.v3.content.Content;
-import io.github.emm035.openapi.immutables.v3.references.Ref;
+import io.github.emm035.openapi.immutables.v3.references.refs.Ref;
 import io.github.emm035.openapi.immutables.v3.shared.Describable;
 import io.github.emm035.openapi.immutables.v3.shared.WithMultipleExamples;
 import org.immutables.value.Value.Immutable;

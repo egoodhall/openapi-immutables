@@ -3,9 +3,9 @@ package io.github.emm035.openapi.immutables.v3;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableList;
+import io.github.emm035.openapi.immutables.v3.security.OpenIdConnectScheme;
 import io.github.emm035.openapi.immutables.v3.shared.Extensible;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
-import io.github.emm035.openapi.immutables.v3.references.Components;
 import io.github.emm035.openapi.immutables.v3.metadata.ExternalDocumentation;
 import io.github.emm035.openapi.immutables.v3.metadata.Info;
 import io.github.emm035.openapi.immutables.v3.security.SecurityRequirement;
@@ -40,13 +40,13 @@ public abstract class AbstractOpenApi implements Extensible {
   }
 
   @Check
-  private OpenApi normalizeExtensions(OpenApi openApi) {
-    if (Checks.allValid(openApi)) {
-      return openApi;
+  AbstractOpenApi normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return OpenApi.builder()
-      .from(openApi)
-      .setExtensions(Checks.validExtensions(openApi))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

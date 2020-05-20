@@ -1,5 +1,6 @@
 package io.github.emm035.openapi.immutables.v3.metadata;
 
+import io.github.emm035.openapi.immutables.v3.security.OpenIdConnectScheme;
 import io.github.emm035.openapi.immutables.v3.shared.Extensible;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import org.immutables.value.Value.Check;
@@ -15,13 +16,13 @@ public abstract class AbstractContact implements Extensible {
   public abstract Optional<String> getEmail();
 
   @Check
-  private Contact normalizeExtensions(Contact extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractContact normalizeExtensions(Contact extensible) {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return Contact.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

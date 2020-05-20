@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class OpenApiTest {
 
-  private static final ObjectMapper om = Json.OBJECT_MAPPER;
+  private static final ObjectMapper om = Json.MAPPER;
 
   @Test
   public void testWithHubspotCrmCardsSpec() throws IOException {
@@ -38,9 +38,10 @@ public class OpenApiTest {
     try {
       String jsonString = loadResourceFileAsString(filename);
       JsonNode readFromFile = om.readTree(jsonString);
-      JsonNode reparsed = om.valueToTree(om.treeToValue(readFromFile, OpenApi.class));
+      OpenApi parsed = om.treeToValue(readFromFile, OpenApi.class);
+      JsonNode serialized = om.valueToTree(parsed);
 
-      onlyRemovedEmptyNodes(readFromFile, reparsed);
+      onlyRemovedEmptyNodes(readFromFile, serialized);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

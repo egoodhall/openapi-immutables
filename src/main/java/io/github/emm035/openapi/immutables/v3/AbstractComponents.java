@@ -1,10 +1,11 @@
-package io.github.emm035.openapi.immutables.v3.references;
+package io.github.emm035.openapi.immutables.v3;
 
 import io.github.emm035.openapi.immutables.v3.callbacks.Callback;
 import io.github.emm035.openapi.immutables.v3.content.Header;
 import io.github.emm035.openapi.immutables.v3.examples.Example;
 import io.github.emm035.openapi.immutables.v3.links.Link;
 import io.github.emm035.openapi.immutables.v3.parameters.Parameter;
+import io.github.emm035.openapi.immutables.v3.references.RefOr;
 import io.github.emm035.openapi.immutables.v3.requests.RequestBody;
 import io.github.emm035.openapi.immutables.v3.responses.Response;
 import io.github.emm035.openapi.immutables.v3.schemas.Schema;

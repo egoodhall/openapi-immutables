@@ -1,6 +1,8 @@
 package io.github.emm035.openapi.immutables.v3.responses;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Preconditions;
 import io.github.emm035.openapi.immutables.v3.references.RefOr;
 import io.github.emm035.openapi.immutables.v3.shared.Extensible;
@@ -14,21 +16,23 @@ import java.util.Optional;
 
 @OpenApiStyle
 @Immutable
+@JsonDeserialize(using = ResponsesDeserializer.class)
+@JsonSerialize(using = ResponsesSerializer.class)
 public abstract class AbstractResponses implements Extensible {
   public abstract Optional<RefOr<Response>> getDefault();
   @JsonUnwrapped
   public abstract Map<Integer, RefOr<Response>> getResponses();
 
   @Check
-  private Responses normalizeExtensions(Responses extensible) {
+  protected AbstractResponses normalizeExtensions() {
     Preconditions.checkState(getDefault().isPresent() || !getResponses().isEmpty(), "At least one response must be specified");
 
-    if (Checks.allValid(extensible)) {
-      return extensible;
+    if (Checks.allValid(this)) {
+      return this;
     }
     return Responses.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

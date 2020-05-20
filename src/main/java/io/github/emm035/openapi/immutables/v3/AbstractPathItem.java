@@ -52,13 +52,13 @@ public abstract class AbstractPathItem implements Summarizable, Describable, Ext
   }
 
   @Check
-  private PathItem normalizeExtensions(PathItem extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractPathItem normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return PathItem.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

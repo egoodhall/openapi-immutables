@@ -1,6 +1,7 @@
 package io.github.emm035.openapi.immutables.v3.links;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.github.emm035.openapi.immutables.v3.security.OpenIdConnectScheme;
 import io.github.emm035.openapi.immutables.v3.shared.Extensible;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import io.github.emm035.openapi.immutables.v3.shared.Describable;
@@ -20,13 +21,13 @@ public abstract class AbstractIdLink implements Link, Extensible, Describable {
   public abstract Optional<Object> getRequestBody();
 
   @Check
-  private IdLink normalizeExtensions(IdLink extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractIdLink normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return IdLink.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

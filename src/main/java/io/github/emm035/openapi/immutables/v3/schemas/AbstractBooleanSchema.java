@@ -26,13 +26,13 @@ public abstract class AbstractBooleanSchema implements TypedSchema {
   }
 
   @Check
-  private BooleanSchema normalizeExtensions(BooleanSchema extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractBooleanSchema normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return BooleanSchema.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

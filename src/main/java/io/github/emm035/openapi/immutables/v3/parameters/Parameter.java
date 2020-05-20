@@ -10,7 +10,7 @@ import io.github.emm035.openapi.immutables.v3.shared.Deprecatable;
 import io.github.emm035.openapi.immutables.v3.shared.Describable;
 import io.github.emm035.openapi.immutables.v3.shared.Extensible;
 import io.github.emm035.openapi.immutables.v3.shared.WithMultipleExamples;
-import io.github.emm035.openapi.immutables.v3.references.Ref;
+import io.github.emm035.openapi.immutables.v3.references.refs.Ref;
 import io.github.emm035.openapi.immutables.v3.references.RefOr;
 import io.github.emm035.openapi.immutables.v3.schemas.Schema;
 

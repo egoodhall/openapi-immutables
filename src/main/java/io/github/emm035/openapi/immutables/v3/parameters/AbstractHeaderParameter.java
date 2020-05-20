@@ -1,9 +1,12 @@
 package io.github.emm035.openapi.immutables.v3.parameters;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
+
+import java.util.Optional;
 
 import static org.immutables.value.Value.Check;
 import static org.immutables.value.Value.Default;
@@ -20,14 +23,26 @@ public abstract class AbstractHeaderParameter implements Parameter {
     return Location.HEADER;
   }
 
-  @Default
-  public Style getStyle() {
-    return Style.SIMPLE;
+  public abstract Optional<Boolean> getRequired();
+  public abstract Optional<Style> getStyle();
+  public abstract Optional<Boolean> getExplode();
+
+  @Derived
+  @JsonIgnore
+  public boolean getRequiredOrDefault() {
+    return getRequired().orElse(true);
   }
 
-  @Default
-  public boolean getExplode() {
-    return false;
+  @Derived
+  @JsonIgnore
+  public Style getStyleOrDefault() {
+    return getStyle().orElse(Style.SIMPLE);
+  }
+
+  @Derived
+  @JsonIgnore
+  public boolean getExplodeOrDefault() {
+    return getExplode().orElse(false);
   }
 
   public static enum Style {
@@ -46,15 +61,13 @@ public abstract class AbstractHeaderParameter implements Parameter {
   }
 
   @Check
-  private HeaderParameter normalizeExtensions(HeaderParameter headerParameter) {
-    if (headerParameter.getExtensions().keySet().stream().allMatch(s -> s.startsWith("x-"))) {
-      return headerParameter;
+  AbstractHeaderParameter normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
-    HeaderParameter.Builder newHeaderParameter = HeaderParameter.builder()
-      .from(headerParameter);
-    headerParameter.getExtensions().entrySet().stream()
-      .filter(e -> e.getKey().startsWith("x-"))
-      .forEach(e -> newHeaderParameter.putExtensions(e.getKey(), e.getValue()));
-    return newHeaderParameter.build();
+    return HeaderParameter.builder()
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
+      .build();
   }
 }

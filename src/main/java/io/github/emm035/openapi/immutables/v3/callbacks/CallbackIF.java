@@ -17,13 +17,13 @@ public abstract class CallbackIF implements Extensible {
   public abstract PathItem getPathItem();
 
   @Check
-  private Callback normalizeExtensions(Callback extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  CallbackIF normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return Callback.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

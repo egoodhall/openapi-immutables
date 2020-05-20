@@ -1,5 +1,6 @@
 package io.github.emm035.openapi.immutables.v3.schemas;
 
+import io.github.emm035.openapi.immutables.v3.security.OpenIdConnectScheme;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import io.github.emm035.openapi.immutables.v3.shared.Enumerated;
 import org.immutables.value.Value.Immutable;
@@ -29,13 +30,13 @@ public abstract class AbstractStringSchema implements TypedSchema, Enumerated<St
   }
 
   @Check
-  private StringSchema normalizeExtensions(StringSchema extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractStringSchema normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return StringSchema.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

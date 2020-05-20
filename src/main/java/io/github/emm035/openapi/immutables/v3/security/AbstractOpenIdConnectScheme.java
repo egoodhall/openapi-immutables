@@ -15,15 +15,13 @@ public abstract class AbstractOpenIdConnectScheme implements SecurityScheme {
   }
 
   @Value.Check
-  private OpenIdConnectScheme normalizeExtensions(OpenIdConnectScheme securityScheme) {
-    if (securityScheme.getExtensions().keySet().stream().allMatch(s -> s.startsWith("x-"))) {
-      return securityScheme;
+  AbstractOpenIdConnectScheme normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
-    OpenIdConnectScheme.Builder newSecurityScheme = OpenIdConnectScheme.builder()
-      .from(securityScheme);
-    securityScheme.getExtensions().entrySet().stream()
-      .filter(e -> e.getKey().startsWith("x-"))
-      .forEach(e -> newSecurityScheme.putExtensions(e.getKey(), e.getValue()));
-    return newSecurityScheme.build();
+    return OpenIdConnectScheme.builder()
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
+      .build();
   }
 }

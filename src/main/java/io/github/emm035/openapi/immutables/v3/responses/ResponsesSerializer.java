@@ -1,0 +1,26 @@
+package io.github.emm035.openapi.immutables.v3.responses;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import io.github.emm035.openapi.immutables.v3.references.RefOr;
+
+import java.io.IOException;
+import java.util.Map;
+
+public class ResponsesSerializer extends JsonSerializer<Responses> {
+  @Override
+  public void serialize(Responses value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    gen.writeStartObject();
+    if (value.getDefault().isPresent()) {
+      gen.writeObjectField("default", value.getDefault());
+    }
+    for (Map.Entry<Integer, RefOr<Response>> entry : value.getResponses().entrySet()) {
+      gen.writeObjectField(String.valueOf(entry.getKey()), entry.getValue());
+    }
+    for (Map.Entry<String, Object> entry : value.getExtensions().entrySet()) {
+      gen.writeObjectField(entry.getKey(), entry.getValue());
+    }
+    gen.writeEndObject();
+  }
+}

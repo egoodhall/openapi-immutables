@@ -26,13 +26,13 @@ public abstract class AbstractOneOfSchema implements Schema {
   }
 
   @Value.Check
-  private OneOfSchema normalizeExtensions(OneOfSchema extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  AbstractOneOfSchema normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return OneOfSchema.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

@@ -1,5 +1,6 @@
 package io.github.emm035.openapi.immutables.v3;
 
+import io.github.emm035.openapi.immutables.v3.security.OpenIdConnectScheme;
 import io.github.emm035.openapi.immutables.v3.shared.Extensible;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import io.github.emm035.openapi.immutables.v3.metadata.ExternalDocumentation;
@@ -16,13 +17,13 @@ public abstract class AbstractTag implements Extensible {
   public abstract Optional<ExternalDocumentation> getExternalDocs();
 
   @Check
-  private Tag normalizeExtensions(Tag extensible) {
-    if (Checks.allValid(extensible)) {
-      return extensible;
+  protected AbstractTag normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
     return Tag.builder()
-      .from(extensible)
-      .setExtensions(Checks.validExtensions(extensible))
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
       .build();
   }
 }

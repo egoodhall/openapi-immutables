@@ -38,15 +38,13 @@ public abstract class AbstractApiKeyScheme implements SecurityScheme {
   }
 
   @Check
-  private ApiKeyScheme normalizeExtensions(ApiKeyScheme securityScheme) {
-    if (securityScheme.getExtensions().keySet().stream().allMatch(s -> s.startsWith("x-"))) {
-      return securityScheme;
+  AbstractApiKeyScheme normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
-    ApiKeyScheme.Builder newSecurityScheme = ApiKeyScheme.builder()
-      .from(securityScheme);
-    securityScheme.getExtensions().entrySet().stream()
-      .filter(e -> e.getKey().startsWith("x-"))
-      .forEach(e -> newSecurityScheme.putExtensions(e.getKey(), e.getValue()));
-    return newSecurityScheme.build();
+    return ApiKeyScheme.builder()
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
+      .build();
   }
 }

@@ -1,29 +1,46 @@
 package io.github.emm035.openapi.immutables.v3.parameters;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import org.immutables.value.Value;
 import org.immutables.value.Value.Check;
+import org.immutables.value.Value.Derived;
+
+import java.util.Optional;
 
 
 @OpenApiStyle
 @Value.Immutable
 public abstract class AbstractCookieParameter implements Parameter {
   @Override
-  @Value.Derived
+  @Derived
   public Location getIn() {
     return Location.COOKIE;
   }
 
-  public Style getStyle() {
-    return Style.FORM;
+  public abstract Optional<Boolean> getRequired();
+  public abstract Optional<Style> getStyle();
+  public abstract Optional<Boolean> getExplode();
+
+  @Derived
+  @JsonIgnore
+  public boolean getRequiredOrDefault() {
+    return getRequired().orElse(true);
   }
 
-  @Value.Default
-  public boolean getExplode() {
-    return true;
+  @Derived
+  @JsonIgnore
+  public Style getStyleOrDefault() {
+    return getStyle().orElse(Style.FORM);
+  }
+
+  @Derived
+  @JsonIgnore
+  public boolean getExplodeOrDefault() {
+    return getExplode().orElse(true);
   }
 
   public static enum Style {
@@ -42,15 +59,13 @@ public abstract class AbstractCookieParameter implements Parameter {
   }
 
   @Check
-  private CookieParameter normalizeExtensions(CookieParameter cookieParameter) {
-    if (cookieParameter.getExtensions().keySet().stream().allMatch(s -> s.startsWith("x-"))) {
-      return cookieParameter;
+  AbstractCookieParameter normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
-    CookieParameter.Builder newCookieParameter = CookieParameter.builder()
-      .from(cookieParameter);
-    cookieParameter.getExtensions().entrySet().stream()
-      .filter(e -> e.getKey().startsWith("x-"))
-      .forEach(e -> newCookieParameter.putExtensions(e.getKey(), e.getValue()));
-    return newCookieParameter.build();
+    return CookieParameter.builder()
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
+      .build();
   }
 }

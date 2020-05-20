@@ -22,17 +22,13 @@ public abstract class AbstractHttpScheme implements SecurityScheme {
   }
 
   @Check
-  private HttpScheme normalizeExtensions(HttpScheme securityScheme) {
-    Preconditions.checkState(!getScheme().equals("bearer") || getBearerFormat().isPresent(), "'bearerFormat' is required for scheme 'bearer'");
-
-    if (securityScheme.getExtensions().keySet().stream().allMatch(s -> s.startsWith("x-"))) {
-      return securityScheme;
+  AbstractHttpScheme normalizeExtensions() {
+    if (Checks.allValid(this)) {
+      return this;
     }
-    HttpScheme.Builder newSecurityScheme = HttpScheme.builder()
-      .from(securityScheme);
-    securityScheme.getExtensions().entrySet().stream()
-      .filter(e -> e.getKey().startsWith("x-"))
-      .forEach(e -> newSecurityScheme.putExtensions(e.getKey(), e.getValue()));
-    return newSecurityScheme.build();
+    return HttpScheme.builder()
+      .from(this)
+      .setExtensions(Checks.validExtensions(this))
+      .build();
   }
 }
