@@ -1,7 +1,7 @@
 package io.github.emm035.openapi.immutables.v3.schemas;
 
+import io.github.emm035.openapi.immutables.v3.references.Referenceable;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
-import io.github.emm035.openapi.immutables.v3.references.RefOr;
 import org.immutables.value.Value.Default;
 import org.immutables.value.Value.Immutable;
 
@@ -19,7 +19,7 @@ public interface ObjectSchemaIF extends TypedSchema {
     return Type.OBJECT;
   }
 
-  Map<String, RefOr<Schema>> getProperties();
+  Map<String, Referenceable<Schema>> getProperties();
   List<String> getRequired();
-  Optional<RefOr<Schema>> getAdditionalProperties();
+  Optional<Referenceable<Schema>> getAdditionalProperties();
 }

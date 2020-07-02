@@ -9,7 +9,6 @@ import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import java.util.Optional;
 
 import static org.immutables.value.Value.Check;
-import static org.immutables.value.Value.Default;
 import static org.immutables.value.Value.Derived;
 import static org.immutables.value.Value.Immutable;
 

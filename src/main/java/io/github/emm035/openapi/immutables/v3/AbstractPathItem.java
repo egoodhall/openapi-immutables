@@ -2,14 +2,14 @@ package io.github.emm035.openapi.immutables.v3;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.ImmutableMap;
+import io.github.emm035.openapi.immutables.v3.parameters.Parameter;
+import io.github.emm035.openapi.immutables.v3.references.Referenceable;
+import io.github.emm035.openapi.immutables.v3.servers.Server;
+import io.github.emm035.openapi.immutables.v3.shared.Describable;
 import io.github.emm035.openapi.immutables.v3.shared.Extensible;
 import io.github.emm035.openapi.immutables.v3.shared.HttpMethod;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
-import io.github.emm035.openapi.immutables.v3.references.RefOr;
-import io.github.emm035.openapi.immutables.v3.shared.Describable;
 import io.github.emm035.openapi.immutables.v3.shared.Summarizable;
-import io.github.emm035.openapi.immutables.v3.parameters.Parameter;
-import io.github.emm035.openapi.immutables.v3.servers.Server;
 import org.immutables.value.Value.Derived;
 import org.immutables.value.Value.Immutable;
 
@@ -23,7 +23,7 @@ import static org.immutables.value.Value.Check;
 @OpenApiStyle
 public abstract class AbstractPathItem implements Summarizable, Describable, Extensible {
   public abstract List<Server> getServers();
-  public abstract List<RefOr<Parameter>> getParameters();
+  public abstract List<Referenceable<Parameter>> getParameters();
 
   public abstract Optional<Operation> getGet();
   public abstract Optional<Operation> getPut();

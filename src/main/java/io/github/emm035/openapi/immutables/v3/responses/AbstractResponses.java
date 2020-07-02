@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Preconditions;
-import io.github.emm035.openapi.immutables.v3.references.RefOr;
+import io.github.emm035.openapi.immutables.v3.references.Referenceable;
 import io.github.emm035.openapi.immutables.v3.shared.Extensible;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import org.immutables.value.Value.Check;
@@ -19,9 +19,9 @@ import java.util.Optional;
 @JsonDeserialize(using = ResponsesDeserializer.class)
 @JsonSerialize(using = ResponsesSerializer.class)
 public abstract class AbstractResponses implements Extensible {
-  public abstract Optional<RefOr<Response>> getDefault();
+  public abstract Optional<Referenceable<Response>> getDefault();
   @JsonUnwrapped
-  public abstract Map<Integer, RefOr<Response>> getResponses();
+  public abstract Map<Integer, Referenceable<Response>> getResponses();
 
   @Check
   protected AbstractResponses normalizeExtensions() {

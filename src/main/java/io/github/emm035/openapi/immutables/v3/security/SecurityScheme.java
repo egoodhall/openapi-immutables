@@ -5,10 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
-import io.github.emm035.openapi.immutables.v3.shared.Extensible;
+import io.github.emm035.openapi.immutables.v3.references.Referenceable;
 import io.github.emm035.openapi.immutables.v3.shared.Describable;
+import io.github.emm035.openapi.immutables.v3.shared.Extensible;
 import io.github.emm035.openapi.immutables.v3.shared.Typed;
 
 import static com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -21,7 +23,8 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
   @Type(value = OAuth2Scheme.class, name = "oauth2"),
   @Type(value = OpenIdConnectScheme.class, name = "openIdConnect")
 })
-public interface SecurityScheme extends Extensible, Describable, Typed<SecurityScheme.Type> {
+@JsonDeserialize
+public interface SecurityScheme extends Extensible, Describable, Typed<SecurityScheme.Type>, Referenceable<SecurityScheme> {
 
   enum Type {
     API_KEY,
