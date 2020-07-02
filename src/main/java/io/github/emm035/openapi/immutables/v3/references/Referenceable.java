@@ -11,4 +11,11 @@ public interface Referenceable<T> {
   default boolean isReferential() {
     return false;
   }
+
+  default T asType(Class<T> clazz) {
+    if (isReferential() && clazz.isAssignableFrom(this.getClass())) {
+      return clazz.cast(this);
+    }
+    throw new IllegalStateException("Unable to cast " + getClass().getSimpleName() + " to " + clazz.getSimpleName());
+  }
 }
