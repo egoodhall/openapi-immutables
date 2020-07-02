@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.immutables.value.Value;
 
 @JsonDeserialize(using = ReferenceableDeserializer.class)
-public interface Referenceable<T> {
+public interface Referenceable<T extends Referenceable<T>> {
   @JsonIgnore
   @Value.Derived
   default boolean isReferential() {

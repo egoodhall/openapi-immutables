@@ -8,7 +8,7 @@ import org.immutables.value.Value.Parameter;
 
 @Value.Immutable
 @OpenApiStyle
-public interface RefIF<T> extends Referenceable<T> {
+public interface RefIF<T extends Referenceable<T>> extends Referenceable<T> {
 
   @JsonIgnore
   @Value.Derived

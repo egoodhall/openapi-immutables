@@ -8,7 +8,7 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 @OpenApiStyle
-public interface HeaderIF extends Describable {
+public interface HeaderIF extends Describable, Referenceable<Header> {
   Referenceable<Schema> getSchema();
 
   public static Header.Builder builder() {

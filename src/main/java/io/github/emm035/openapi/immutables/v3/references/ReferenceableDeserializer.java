@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 
 import java.io.IOException;
 
-public class ReferenceableDeserializer<T> extends JsonDeserializer<Referenceable<T>> implements ContextualDeserializer {
+public class ReferenceableDeserializer<T extends Referenceable<T>> extends JsonDeserializer<Referenceable<T>> implements ContextualDeserializer {
 
   private JavaType valueType;
 
@@ -30,7 +30,7 @@ public class ReferenceableDeserializer<T> extends JsonDeserializer<Referenceable
 
   @Override
   public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
-    ReferenceableDeserializer<Object> deser = new ReferenceableDeserializer<>();
+    ReferenceableDeserializer<?> deser = new ReferenceableDeserializer<>();
     deser.valueType = ctxt.getContextualType().getBindings().getBoundType(0);
     return deser;
   }
