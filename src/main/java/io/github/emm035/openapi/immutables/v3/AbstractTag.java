@@ -1,9 +1,8 @@
 package io.github.emm035.openapi.immutables.v3;
 
-import io.github.emm035.openapi.immutables.v3.security.OpenIdConnectScheme;
+import io.github.emm035.openapi.immutables.v3.metadata.ExternalDocumentation;
 import io.github.emm035.openapi.immutables.v3.shared.Extensible;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
-import io.github.emm035.openapi.immutables.v3.metadata.ExternalDocumentation;
 import org.immutables.value.Value.Check;
 import org.immutables.value.Value.Immutable;
 

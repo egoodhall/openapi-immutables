@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
-import org.immutables.value.Value.Default;
 import org.immutables.value.Value.Derived;
 import org.immutables.value.Value.Immutable;
 

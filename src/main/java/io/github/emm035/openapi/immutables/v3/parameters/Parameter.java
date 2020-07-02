@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.github.emm035.openapi.immutables.v3.references.Referenceable;
+import io.github.emm035.openapi.immutables.v3.schemas.Schema;
 import io.github.emm035.openapi.immutables.v3.shared.Deprecatable;
 import io.github.emm035.openapi.immutables.v3.shared.Describable;
 import io.github.emm035.openapi.immutables.v3.shared.Extensible;
 import io.github.emm035.openapi.immutables.v3.shared.WithMultipleExamples;
-import io.github.emm035.openapi.immutables.v3.references.refs.Ref;
-import io.github.emm035.openapi.immutables.v3.references.RefOr;
-import io.github.emm035.openapi.immutables.v3.schemas.Schema;
 
 import java.util.Optional;
 
@@ -25,17 +25,14 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
   @Type(value = HeaderParameter.class, name = "header"),
   @Type(value = CookieParameter.class, name = "cookie")
 })
-public interface Parameter extends WithMultipleExamples, Deprecatable, Describable, Extensible {
+@JsonDeserialize
+public interface Parameter extends WithMultipleExamples, Deprecatable, Describable, Extensible, Referenceable<Parameter> {
 
   Location getIn();
   String getName();
   Optional<Boolean> getRequired();
-  RefOr<Schema> getSchema();
+  Referenceable<Schema> getSchema();
   Optional<Object> getDefault();
-
-  static Ref ref(String name) {
-    return Ref.toParameter(name);
-  }
 
   static CookieParameter.Builder cookieBuilder() {
     return CookieParameter.builder();

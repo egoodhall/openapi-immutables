@@ -8,8 +8,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.primitives.Ints;
-import io.github.emm035.openapi.immutables.v3.PathItem;
-import io.github.emm035.openapi.immutables.v3.references.RefOr;
+import io.github.emm035.openapi.immutables.v3.references.Referenceable;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -26,10 +25,10 @@ public class ResponsesDeserializer extends JsonDeserializer<Responses> {
       if (fieldName.startsWith("x-")) {
         builder.putExtensions(fieldName, mapper.treeToValue(node.get(fieldName), Object.class));
       } else if (fieldName.equals("default")) {
-        RefOr<Response> defaultResponse = mapper.readValue(mapper.treeAsTokens(node.get(fieldName)), new TypeReference<RefOr<Response>>() {});
+        Referenceable<Response> defaultResponse = mapper.readValue(mapper.treeAsTokens(node.get(fieldName)), new TypeReference<Referenceable<Response>>() {});
         builder.setDefault(defaultResponse);
       } else {
-        RefOr<Response> response = mapper.readValue(mapper.treeAsTokens(node.get(fieldName)), new TypeReference<RefOr<Response>>() {});
+        Referenceable<Response> response = mapper.readValue(mapper.treeAsTokens(node.get(fieldName)), new TypeReference<Referenceable<Response>>() {});
         builder.putResponses(Ints.tryParse(fieldName), response);
       }
     }

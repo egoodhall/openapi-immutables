@@ -8,7 +8,6 @@ import com.google.common.base.CaseFormat;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import org.immutables.value.Value;
 import org.immutables.value.Value.Check;
-import org.immutables.value.Value.Default;
 import org.immutables.value.Value.Derived;
 
 import java.util.Optional;

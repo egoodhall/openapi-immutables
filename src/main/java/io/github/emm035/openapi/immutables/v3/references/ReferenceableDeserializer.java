@@ -10,27 +10,27 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
-import io.github.emm035.openapi.immutables.v3.references.refs.Ref;
 
 import java.io.IOException;
 
-public class RefOrDeserializer<T> extends JsonDeserializer<RefOr<T>> implements ContextualDeserializer {
+public class ReferenceableDeserializer<T> extends JsonDeserializer<Referenceable<T>> implements ContextualDeserializer {
 
   private JavaType valueType;
 
   @Override
-  public RefOr<T> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+  public Referenceable<T> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
     ObjectMapper mapper = (ObjectMapper) p.getCodec();
     JsonNode jsonNode = mapper.readTree(p);
     if (jsonNode.path("$ref").isTextual()) {
-      return RefOr.ref(mapper.readValue(mapper.treeAsTokens(jsonNode), Ref.class));
+      return Ref.of(jsonNode.path("$ref").asText());
     }
-    return RefOr.concrete(mapper.readValue(mapper.treeAsTokens(jsonNode), valueType));
+
+    return mapper.readValue(mapper.treeAsTokens(jsonNode), valueType);
   }
 
   @Override
   public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
-    RefOrDeserializer<Object> deser = new RefOrDeserializer<>();
+    ReferenceableDeserializer<Object> deser = new ReferenceableDeserializer<>();
     deser.valueType = ctxt.getContextualType().getBindings().getBoundType(0);
     return deser;
   }

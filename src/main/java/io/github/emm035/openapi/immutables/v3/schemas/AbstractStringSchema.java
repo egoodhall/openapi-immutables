@@ -1,8 +1,7 @@
 package io.github.emm035.openapi.immutables.v3.schemas;
 
-import io.github.emm035.openapi.immutables.v3.security.OpenIdConnectScheme;
-import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import io.github.emm035.openapi.immutables.v3.shared.Enumerated;
+import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import org.immutables.value.Value.Immutable;
 
 import java.util.Optional;

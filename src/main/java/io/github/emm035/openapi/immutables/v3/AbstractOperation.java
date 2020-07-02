@@ -2,7 +2,7 @@ package io.github.emm035.openapi.immutables.v3;
 
 import io.github.emm035.openapi.immutables.v3.metadata.ExternalDocumentation;
 import io.github.emm035.openapi.immutables.v3.parameters.Parameter;
-import io.github.emm035.openapi.immutables.v3.references.RefOr;
+import io.github.emm035.openapi.immutables.v3.references.Referenceable;
 import io.github.emm035.openapi.immutables.v3.requests.RequestBody;
 import io.github.emm035.openapi.immutables.v3.responses.Responses;
 import io.github.emm035.openapi.immutables.v3.security.SecurityRequirement;
@@ -23,11 +23,11 @@ import java.util.Optional;
 @OpenApiStyle
 public abstract class AbstractOperation implements Summarizable, Describable, Extensible, Deprecatable {
   public abstract Responses getResponses();
-  public abstract Optional<RefOr<RequestBody>> getRequestBody();
+  public abstract Optional<Referenceable<RequestBody>> getRequestBody();
   public abstract Optional<ExternalDocumentation> getExternalDocs();
   public abstract Optional<String> getOperationId();
   public abstract List<String> getTags();
-  public abstract List<RefOr<Parameter>> getParameters();
+  public abstract List<Referenceable<Parameter>> getParameters();
   public abstract List<Server> getServers();
   public abstract List<SecurityRequirement> getSecurity();
   // TODO: - Callbacks

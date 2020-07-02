@@ -1,6 +1,5 @@
 package io.github.emm035.openapi.immutables.v3.security;
 
-import com.google.common.base.Preconditions;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import org.immutables.value.Value.Check;
 import org.immutables.value.Value.Derived;

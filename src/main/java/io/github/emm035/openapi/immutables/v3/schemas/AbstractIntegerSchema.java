@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.common.base.CaseFormat;
-import io.github.emm035.openapi.immutables.v3.security.OpenIdConnectScheme;
 import io.github.emm035.openapi.immutables.v3.shared.OpenApiStyle;
 import org.immutables.value.Value.Check;
 import org.immutables.value.Value.Derived;
