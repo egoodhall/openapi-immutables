@@ -1,3 +1,5 @@
+### This can now be found in the `openapi-core` module in [`openapi-tooling`](https://github.com/emm035/openapi-tooling)
+
 # openapi-immutables ![Build](https://github.com/emm035/openapi-immutables/workflows/Build/badge.svg)
 Open API implemented using Java Immutables
 
